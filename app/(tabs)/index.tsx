@@ -1,31 +1,46 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import { useContext } from 'react';
+import { NotesContext } from '../_layout';
+import { useRouter } from 'expo-router';
+import NoteItem from '@/components/NoteItem';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function Home() {
+  const { notes, setNotes } = useContext(NotesContext);
+  const router = useRouter();
 
-export default function TabOneScreen() {
+  const deleteNote = (id: string) => {
+    const filtered = notes.filter((n: any) => n.id !== id);
+    setNotes(filtered);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <FlatList
+        data={notes}
+        renderItem={({ item }: any) => (
+          <NoteItem note={item} onDelete={() => deleteNote(item.id)} />
+        )}
+        keyExtractor={(item: any) => item.id}
+      />
+
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push('/add')}
+      >
+        <Text style={styles.text}>Add Note</Text>
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { flex: 1, padding: 20 },
+  button: {
+    backgroundColor: 'blue',
+    padding: 15,
+    marginTop: 20,
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  text: { color: 'white' },
 });
