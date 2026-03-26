@@ -8,6 +8,7 @@ import React from 'react';
 export default function AddNote() {
   const [text, setText] = useState('');
   const { notes, setNotes } = useContext(NotesContext);
+  const [selectedCategory, setSelectedCategory] = useState('General');
   const router = useRouter();
 
   const addNote = () => {
@@ -16,6 +17,8 @@ export default function AddNote() {
     const newNote: Note = {
       id: Date.now().toString(),
       text,
+      category: selectedCategory,
+      isFavorite: false,
     };
 
     setNotes([...notes, newNote]);
@@ -28,6 +31,13 @@ export default function AddNote() {
         placeholder="Write your note..."
         value={text}
         onChangeText={setText}
+        style={styles.input}
+      />
+
+      <TextInput
+        placeholder="Category (Work, Study, Personal)"
+        value={selectedCategory}
+        onChangeText={setSelectedCategory}
         style={styles.input}
       />
 
