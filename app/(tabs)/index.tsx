@@ -19,6 +19,13 @@ export default function Home() {
     n.text.toLowerCase().includes(search.toLowerCase())
   );
 
+  const toggleFavorite = (id: string) => {
+    const updated = notes.map((n: any) =>
+      n.id === id ? { ...n, isFavorite: !n.isFavorite } : n
+    );
+    setNotes(updated);
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -34,8 +41,12 @@ export default function Home() {
       <FlatList
         data={filteredNotes}
         renderItem={({ item }: any) => (
-          <NoteItem note={item} onDelete={() => deleteNote(item.id)} />
-        )}
+        <NoteItem
+          note={item}
+          onDelete={() => deleteNote(item.id)}
+          onToggleFavorite={() => toggleFavorite(item.id)}
+        />
+      )}
         keyExtractor={(item: any) => item.id}
       />
 
