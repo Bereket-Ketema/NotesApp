@@ -8,16 +8,22 @@ import NoteItem from '@/components/NoteItem';
 export default function Home() {
   const { notes, setNotes } = useContext(NotesContext);
   const router = useRouter();
+  const [search, setSearch] = useState('');
 
   const deleteNote = (id: string) => {
     const filtered = notes.filter((n: any) => n.id !== id);
     setNotes(filtered);
   };
 
+  const filteredNotes = notes.filter((n: any) =>
+    n.text.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
+      
       <FlatList
-        data={notes}
+        data={filteredNotes}
         renderItem={({ item }: any) => (
           <NoteItem note={item} onDelete={() => deleteNote(item.id)} />
         )}
