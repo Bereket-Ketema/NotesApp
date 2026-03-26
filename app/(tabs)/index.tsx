@@ -6,10 +6,10 @@ import { useRouter } from 'expo-router';
 import NoteItem from '@/components/NoteItem';
 
 export default function Home() {
-  const { notes, setNotes } = useContext(NotesContext);
   const [categoryFilter, setCategoryFilter] = useState('All');
   const router = useRouter();
   const [search, setSearch] = useState('');
+  const { notes, setNotes, darkMode, setDarkMode } = useContext(NotesContext);
 
   const deleteNote = (id: string) => {
     const filtered = notes.filter((n: any) => n.id !== id);
@@ -33,6 +33,15 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
+      <View style={{
+        flex: 1,
+        padding: 20,
+        backgroundColor: darkMode ? '#121212' : 'white'
+        }}>
+          <Pressable onPress={() => setDarkMode(!darkMode)}>
+            <Text>{darkMode ? 'Light Mode' : 'Dark Mode'}</Text>
+          </Pressable>
+        </View>
       <TextInput
         placeholder="Search notes..."
         value={search}
