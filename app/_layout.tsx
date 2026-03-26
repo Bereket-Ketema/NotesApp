@@ -4,10 +4,13 @@ import { Note } from '../types';
 import { createContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 export const NotesContext = createContext<any>(null);
 
 export default function Layout() {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [darkMode, setDarkMode] = useState(false);
+
 
   // 🔹 Load notes on start
   useEffect(() => {
@@ -24,7 +27,7 @@ export default function Layout() {
   }, [notes]);
 
   return (
-    <NotesContext.Provider value={{ notes, setNotes }}>
+    <NotesContext.Provider value={{ notes, setNotes, darkMode, setDarkMode }}>
       <Stack />
     </NotesContext.Provider>
   );
