@@ -21,7 +21,16 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      
+      <TextInput
+        placeholder="Search notes..."
+        value={search}
+        onChangeText={setSearch}
+        style={{
+          borderWidth: 1,
+          padding: 10,
+          marginBottom: 10,
+        }}
+      />
       <FlatList
         data={filteredNotes}
         renderItem={({ item }: any) => (
