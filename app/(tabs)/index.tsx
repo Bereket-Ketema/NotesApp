@@ -43,6 +43,16 @@ export default function Home() {
           marginBottom: 10,
         }}
       />
+      <TextInput
+        placeholder="Filter Category (All, Work, Study...)"
+        value={categoryFilter}
+        onChangeText={setCategoryFilter}
+        style={{
+          borderWidth: 1,
+          padding: 10,
+          marginBottom: 10,
+        }}
+      />
       <FlatList
         data={filteredNotes}
         renderItem={({ item }: any) => (
