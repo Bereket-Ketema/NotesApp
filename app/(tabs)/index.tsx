@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, FlatList, Pressable, StyleSheet, TextInput } from 'react-native';
 import { useContext } from 'react';
 import { NotesContext } from '../_layout';
 import { useRouter } from 'expo-router';
