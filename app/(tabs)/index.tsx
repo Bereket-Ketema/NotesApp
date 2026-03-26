@@ -7,6 +7,7 @@ import NoteItem from '@/components/NoteItem';
 
 export default function Home() {
   const { notes, setNotes } = useContext(NotesContext);
+  const [categoryFilter, setCategoryFilter] = useState('All');
   const router = useRouter();
   const [search, setSearch] = useState('');
 
@@ -15,9 +16,13 @@ export default function Home() {
     setNotes(filtered);
   };
 
-  const filteredNotes = notes.filter((n: any) =>
-    n.text.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredNotes = notes.filter((n: any) => {
+    const matchesSearch = n.text.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory =
+      categoryFilter === 'All' || n.category === categoryFilter;
+  
+    return matchesSearch && matchesCategory;
+  });
 
   const toggleFavorite = (id: string) => {
     const updated = notes.map((n: any) =>
