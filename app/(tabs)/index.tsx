@@ -99,6 +99,18 @@ export default function Home() {
       <Text style={{ marginBottom: 10 }}>
         Total Notes: {notes.length}
       </Text>
+
+      <Pressable
+        onPress={clearAll}
+        style={{
+          backgroundColor: 'red',
+          padding: 10,
+          marginBottom: 10,
+          alignItems: 'center'
+        }}
+      >
+        <Text style={{ color: 'white' }}>Clear All</Text>
+      </Pressable>
     </View>
   );
 }
