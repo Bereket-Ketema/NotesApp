@@ -10,6 +10,11 @@ export default function AddNote() {
   const { notes, setNotes } = useContext(NotesContext);
   const [selectedCategory, setSelectedCategory] = useState('General');
   const router = useRouter();
+  const inputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const addNote = () => {
     if (text.trim() === '') return;
@@ -18,6 +23,7 @@ export default function AddNote() {
       alert("Note must be at least 3 characters");
       return;
     }
+
 
     const newNote: Note = {
       id: Date.now().toString(),
@@ -40,6 +46,7 @@ export default function AddNote() {
       />
 
       <TextInput
+        ref={inputRef}
         placeholder="Category (Work, Study, Personal)"
         value={selectedCategory}
         onChangeText={setSelectedCategory}
