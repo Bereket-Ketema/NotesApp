@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { useRouter } from 'expo-router';
 import { NotesContext } from '../_layout';
 import { Note } from '@/types';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 export default function AddNote() {
   const [text, setText] = useState('');
@@ -13,6 +13,11 @@ export default function AddNote() {
 
   const addNote = () => {
     if (text.trim() === '') return;
+
+    if (text.trim().length < 3) {
+      alert("Note must be at least 3 characters");
+      return;
+    }
 
     const newNote: Note = {
       id: Date.now().toString(),
