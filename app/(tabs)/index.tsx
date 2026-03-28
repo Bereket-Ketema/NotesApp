@@ -16,12 +16,17 @@ export default function Home() {
     setNotes(filtered);
   };
 
+  
   const filteredNotes = notes.filter((n: any) => {
     const matchesSearch = n.text.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
       categoryFilter === 'All' || n.category === categoryFilter;
   
     return matchesSearch && matchesCategory;
+  });
+
+  const sortedNotes = [...filteredNotes].sort((a: any, b: any) => {
+    return b.isFavorite - a.isFavorite;
   });
 
   const toggleFavorite = (id: string) => {
@@ -68,7 +73,7 @@ export default function Home() {
           </Text>
         ) : (
           <FlatList
-            data={filteredNotes}
+            data={sortedNotes}
             renderItem={({ item }: any) => (
               <NoteItem
                 note={item}
