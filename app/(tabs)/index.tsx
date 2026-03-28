@@ -91,6 +91,10 @@ export default function Home() {
       >
         <Text style={styles.text}>Add Note</Text>
       </Pressable>
+
+      <Text style={{ marginBottom: 10 }}>
+        Total Notes: {notes.length}
+      </Text>
     </View>
   );
 }
