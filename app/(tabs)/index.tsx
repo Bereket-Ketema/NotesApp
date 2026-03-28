@@ -36,6 +36,10 @@ export default function Home() {
     setNotes(updated);
   };
 
+  const clearAll = () => {
+    setNotes([]);
+  };
+
   return (
     <View style={styles.container}>
       <View style={{
