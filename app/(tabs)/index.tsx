@@ -62,17 +62,23 @@ export default function Home() {
           marginBottom: 10,
         }}
       />
-      <FlatList
-        data={filteredNotes}
-        renderItem={({ item }: any) => (
-        <NoteItem
-          note={item}
-          onDelete={() => deleteNote(item.id)}
-          onToggleFavorite={() => toggleFavorite(item.id)}
-        />
-      )}
-        keyExtractor={(item: any) => item.id}
-      />
+      {filteredNotes.length === 0 ? (
+          <Text style={{ textAlign: 'center', marginTop: 50 }}>
+            No notes found 📝
+          </Text>
+        ) : (
+          <FlatList
+            data={filteredNotes}
+            renderItem={({ item }: any) => (
+              <NoteItem
+                note={item}
+                onDelete={() => deleteNote(item.id)}
+                onToggleFavorite={() => toggleFavorite(item.id)}
+              />
+            )}
+            keyExtractor={(item: any) => item.id}
+          />
+        )}
 
       <Pressable
         style={styles.button}
